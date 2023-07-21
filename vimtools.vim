@@ -16,7 +16,7 @@ vnoremap <leader>u :call UnsplitPipes()<CR>
 iabbrev ;bp; pathlib.Path(__file__).resolve().parent
 
 " WIP
-fun! ExtractFunction()
+fun! ExtractFunction() range
     norm ^
     let l:offset = col('.') - 1
     exe a:firstline . ',' . a:lastline . 's/\v {' . l:offset . '}/    /'
