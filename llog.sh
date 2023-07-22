@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: James Casey
-# Last Updated: 2023-07-21
+# Last Updated: 2023-07-22
 
 ## This file should be sourced
 
@@ -10,6 +10,7 @@ function llog {
 
     cdir=$(pwd)
 
+    # Step up until we find a logs directory
     while true; do
 
         logdir="${cdir}/logs"
@@ -17,6 +18,7 @@ function llog {
             break;
         fi
 
+        # if we get to the top, then give up!
         if [ "${cdir}" = "/" ]; then
             printf "no logdir found!\n"
             return;
@@ -28,6 +30,7 @@ function llog {
     pushd "${logdir}" >/dev/null
     printf "$(pwd)\n"
 
+    # Search for the newest ".log" file
     logfile=$( find . -type f -print0 -name "*.log" \
         | xargs -0 stat --format '%Y :%n' \
         | sort -nr \
